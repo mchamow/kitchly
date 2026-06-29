@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Strona główna",
+    "recipes": "Przepisy",
+    "categories": "Kategorie",
+    "browse": "Przeglądaj przepisy"
+  },
+  "home": {
+    "tagline": "Twoja osobista książka kucharska",
+    "headline": "Ugotuj coś, co pokochasz, już dziś.",
+    "body": "Proste, starannie opracowane przepisy na każdą okazję — od szybkich kolacji po weekendowe projekty.",
+    "cta_primary": "Przeglądaj wszystkie przepisy",
+    "cta_secondary": "Zobacz kategorie",
+    "stats_recipes": "Przepisów",
+    "stats_categories": "Kategorii",
+    "stats_chefs": "Szefów kuchni",
+    "featured_label": "Wybór szefa",
+    "featured_title": "Wyróżnione przepisy",
+    "view_all": "Zobacz wszystkie",
+    "categories_label": "Przeglądaj według typu",
+    "categories_title": "Na co masz ochotę?"
+  },
+  "recipes": {
+    "page_label": "Wszystkie przepisy",
+    "page_title": "Znajdź swoje ulubione danie",
+    "search_placeholder": "Szukaj po nazwie, tagu lub kategorii...",
+    "difficulty_Easy": "Łatwy",
+    "difficulty_Medium": "Średni",
+    "difficulty_Hard": "Trudny",
+    "time_30": "≤ 30 min",
+    "time_60": "≤ 60 min",
+    "time_90": "≤ 90 min",
+    "clear": "Wyczyść",
+    "count_one": "przepis",
+    "count_other": "przepisów",
+    "empty": "Nie znaleziono przepisów. Spróbuj innego wyszukiwania."
+  },
+  "detail": {
+    "recipe_by": "Przepis od",
+    "prep": "Przygotowanie",
+    "cook": "Gotowanie",
+    "total": "Łącznie",
+    "servings": "Porcji",
+    "ingredients": "Składniki",
+    "instructions": "Przygotowanie",
+    "nutrition": "Wartości odżywcze na porcję",
+    "calories": "Kalorie",
+    "protein": "Białko",
+    "carbs": "Węglowodany",
+    "fat": "Tłuszcz",
+    "back": "Powrót do przepisów"
+  },
+  "categories": {
+    "page_label": "Przeglądaj według typu",
+    "page_title": "Na co masz ochotę?",
+    "page_body": "Odkryj przepisy według rodzaju posiłku — od szybkich śniadań po wystawne desery.",
+    "recipes_count": "przepisów"
+  },
+  "footer": {
+    "rights": "Wszelkie prawa zastrzeżone."
+  }
+}

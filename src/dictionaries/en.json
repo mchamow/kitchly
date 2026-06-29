@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Home",
+    "recipes": "Recipes",
+    "categories": "Categories",
+    "browse": "Browse recipes"
+  },
+  "home": {
+    "tagline": "Your personal cookbook",
+    "headline": "Cook something you love today.",
+    "body": "Simple, well-crafted recipes for every occasion — from quick weeknight meals to weekend projects.",
+    "cta_primary": "Browse all recipes",
+    "cta_secondary": "View categories",
+    "stats_recipes": "Recipes",
+    "stats_categories": "Categories",
+    "stats_chefs": "Expert chefs",
+    "featured_label": "Chef's picks",
+    "featured_title": "Featured recipes",
+    "view_all": "View all",
+    "categories_label": "Browse by type",
+    "categories_title": "What are you craving?"
+  },
+  "recipes": {
+    "page_label": "All recipes",
+    "page_title": "Find your next favourite dish",
+    "search_placeholder": "Search by name, tag, or category...",
+    "difficulty_Easy": "Easy",
+    "difficulty_Medium": "Medium",
+    "difficulty_Hard": "Hard",
+    "time_30": "≤ 30 min",
+    "time_60": "≤ 60 min",
+    "time_90": "≤ 90 min",
+    "clear": "Clear",
+    "count_one": "recipe",
+    "count_other": "recipes",
+    "empty": "No recipes found. Try a different search."
+  },
+  "detail": {
+    "recipe_by": "Recipe by",
+    "prep": "Prep",
+    "cook": "Cook",
+    "total": "Total",
+    "servings": "Servings",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions",
+    "nutrition": "Nutrition per serving",
+    "calories": "Calories",
+    "protein": "Protein",
+    "carbs": "Carbs",
+    "fat": "Fat",
+    "back": "Back to recipes"
+  },
+  "categories": {
+    "page_label": "Browse by type",
+    "page_title": "What are you craving?",
+    "page_body": "Explore recipes organised by meal type — from quick breakfasts to indulgent desserts.",
+    "recipes_count": "recipes"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
