@@ -4,6 +4,7 @@ export interface Post {
   title: string;
   excerpt: string;
   content: string;
+  coverImage: string | null;
   author: string;
   publishedAt: string; // "YYYY-MM-DDTHH:mm:ss"
   modifiedAt: string;

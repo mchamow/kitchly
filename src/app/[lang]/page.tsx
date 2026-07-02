@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getFeaturedRecipes, categories } from "@/lib/data";
+import { getFeaturedPosts, posts } from "@/lib/data";
 import { getDictionary, hasLocale } from "@/dictionaries";
-import RecipeGrid from "@/components/RecipeGrid";
-import CategoryCard from "@/components/CategoryCard";
+import PostGrid from "@/components/RecipeGrid";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -21,13 +20,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   const dict = await getDictionary(lang);
   const d = dict.home;
-  const featured = getFeaturedRecipes();
-
-  const difficultyLabels = {
-    difficulty_Easy: dict.recipes.difficulty_Easy,
-    difficulty_Medium: dict.recipes.difficulty_Medium,
-    difficulty_Hard: dict.recipes.difficulty_Hard,
-  };
+  const featured = getFeaturedPosts(6);
 
   return (
     <>
@@ -49,22 +42,14 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             >
               {d.cta_primary}
             </Link>
-            <Link
-              href={`/${lang}/categories`}
-              id="hero-cta-secondary"
-              className="text-stone-500 font-medium text-sm px-6 py-3 rounded-lg border border-stone-200 hover:border-stone-400 hover:text-stone-700 transition-all duration-150 bg-white"
-            >
-              {d.cta_secondary}
-            </Link>
           </div>
         </div>
 
         {/* Stats */}
         <div className="flex items-center gap-10 mt-14 pt-10 divider">
           {[
-            ["80+", d.stats_recipes],
-            ["6", d.stats_categories],
-            ["3", d.stats_chefs],
+            [String(posts.length), d.stats_recipes],
+            ["1", d.stats_chefs],
           ].map(([num, label]) => (
             <div key={label}>
               <div className="text-2xl font-bold text-stone-900">{num}</div>
@@ -77,7 +62,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       {/* ── Divider ── */}
       <div className="max-w-5xl mx-auto px-6"><div className="divider" /></div>
 
-      {/* ── Featured Recipes ── */}
+      {/* ── Latest Posts ── */}
       <section className="max-w-5xl mx-auto px-6 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -96,34 +81,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </svg>
           </Link>
         </div>
-        <RecipeGrid
-          recipes={featured}
-          lang={lang}
-          difficultyLabels={difficultyLabels}
-        />
-      </section>
-
-      {/* ── Divider ── */}
-      <div className="max-w-5xl mx-auto px-6"><div className="divider" /></div>
-
-      {/* ── Categories ── */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="mb-8">
-          <p className="label mb-1">{d.categories_label}</p>
-          <h2 className="text-2xl font-bold text-stone-900 tracking-tight">
-            {d.categories_title}
-          </h2>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {categories.map((cat) => (
-            <CategoryCard
-              key={cat.id}
-              category={cat}
-              lang={lang}
-              recipesLabel={dict.categories.recipes_count}
-            />
-          ))}
-        </div>
+        <PostGrid posts={featured} lang={lang} />
       </section>
     </>
   );
