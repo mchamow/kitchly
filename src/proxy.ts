@@ -23,6 +23,6 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip Next.js internals, static files, and public assets
-    "/((?!_next/static|_next/image|favicon.ico|public).*)",
+    "/((?!_next/static|_next/image|favicon.ico|img|public).*)",
   ],
 };

@@ -1,13 +1,9 @@
 import Link from "next/link";
-import { Category } from "@/lib/types";
 
-interface CategoryCardProps {
-  category: Category;
-  lang: string;
-  recipesLabel: string;
-}
 
-export default function CategoryCard({ category, lang, recipesLabel }: CategoryCardProps) {
+// CategoryCard is kept for reference but no longer used after category removal.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function CategoryCard({ category, lang, recipesLabel }: { category: any; lang: string; recipesLabel: string }) {
   return (
     <Link href={`/${lang}/categories/${category.slug}`} className="block group">
       <div className="card p-5 flex flex-col gap-3 h-full">

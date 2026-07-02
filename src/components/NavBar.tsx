@@ -8,7 +8,6 @@ import { locales } from "@/dictionaries/config";
 interface NavDict {
   home: string;
   recipes: string;
-  categories: string;
   browse: string;
 }
 
@@ -23,7 +22,6 @@ export default function NavBar({ lang, nav }: NavBarProps) {
   const navLinks = [
     { href: `/${lang}`, label: nav.home },
     { href: `/${lang}/recipes`, label: nav.recipes },
-    { href: `/${lang}/categories`, label: nav.categories },
   ];
 
   return (
@@ -43,11 +41,10 @@ export default function NavBar({ lang, nav }: NavBarProps) {
             <li key={href}>
               <Link
                 href={href}
-                className={`text-sm px-3.5 py-2 rounded-lg transition-colors duration-150 ${
-                  pathname === href
+                className={`text-sm px-3.5 py-2 rounded-lg transition-colors duration-150 ${pathname === href
                     ? "text-stone-900 font-semibold bg-stone-100"
                     : "text-stone-500 hover:text-stone-800 hover:bg-stone-100 font-medium"
-                }`}
+                  }`}
               >
                 {label}
               </Link>

@@ -1,64 +1,32 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Recipe, SearchFilters, DifficultyLevel } from "@/lib/types";
-import { recipes } from "@/lib/data";
+import { Post, SearchFilters } from "@/lib/types";
+import { posts } from "@/lib/data";
 
-export function useRecipeSearch(initialRecipes: Recipe[] = recipes) {
-  const [filters, setFilters] = useState<SearchFilters>({
-    query: "",
-    category: undefined,
-    difficulty: undefined,
-    maxTime: undefined,
-  });
+export function usePostSearch(initialPosts: Post[] = posts) {
+  const [filters, setFilters] = useState<SearchFilters>({ query: "" });
 
-  const filteredRecipes = useMemo(() => {
-    return initialRecipes.filter((recipe) => {
-      const q = filters.query.toLowerCase();
-      const matchesQuery =
-        !q ||
-        recipe.title.toLowerCase().includes(q) ||
-        recipe.description.toLowerCase().includes(q) ||
-        recipe.tags.some((t) => t.toLowerCase().includes(q));
-
-      const matchesCategory =
-        !filters.category ||
-        recipe.category.toLowerCase() === filters.category.toLowerCase();
-
-      const matchesDifficulty =
-        !filters.difficulty || recipe.difficulty === filters.difficulty;
-
-      const totalTime = recipe.prepTime + recipe.cookTime;
-      const matchesTime =
-        !filters.maxTime || totalTime <= filters.maxTime;
-
-      return matchesQuery && matchesCategory && matchesDifficulty && matchesTime;
-    });
-  }, [initialRecipes, filters]);
+  const filtered = useMemo(() => {
+    if (!filters.query.trim()) return initialPosts;
+    const q = filters.query.toLowerCase();
+    return initialPosts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.excerpt.toLowerCase().includes(q)
+    );
+  }, [initialPosts, filters.query]);
 
   const setQuery = (query: string) =>
     setFilters((prev) => ({ ...prev, query }));
 
-  const setCategory = (category: string | undefined) =>
-    setFilters((prev) => ({ ...prev, category }));
-
-  const setDifficulty = (difficulty: DifficultyLevel | undefined) =>
-    setFilters((prev) => ({ ...prev, difficulty }));
-
-  const setMaxTime = (maxTime: number | undefined) =>
-    setFilters((prev) => ({ ...prev, maxTime }));
-
-  const clearFilters = () =>
-    setFilters({ query: "", category: undefined, difficulty: undefined, maxTime: undefined });
+  const clearFilters = () => setFilters({ query: "" });
 
   return {
-    recipes: filteredRecipes,
+    posts: filtered,
     filters,
     setQuery,
-    setCategory,
-    setDifficulty,
-    setMaxTime,
     clearFilters,
-    totalCount: filteredRecipes.length,
+    totalCount: filtered.length,
   };
 }
