@@ -54,7 +54,9 @@
     "page_label": "Przeglądaj według typu",
     "page_title": "Na co masz ochotę?",
     "page_body": "Odkryj przepisy według rodzaju posiłku — od szybkich śniadań po wystawne desery.",
-    "recipes_count": "przepisów"
+    "recipes_count": "przepisów",
+    "all_recipes": "Wszystkie przepisy",
+    "no_recipes": "Brak przepisów w tej kategorii."
   },
   "footer": {
     "rights": "Wszelkie prawa zastrzeżone."

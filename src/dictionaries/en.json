@@ -54,7 +54,9 @@
     "page_label": "Browse by type",
     "page_title": "What are you craving?",
     "page_body": "Explore recipes organised by meal type — from quick breakfasts to indulgent desserts.",
-    "recipes_count": "recipes"
+    "recipes_count": "recipes",
+    "all_recipes": "All recipes",
+    "no_recipes": "No recipes in this category yet."
   },
   "footer": {
     "rights": "All rights reserved."
