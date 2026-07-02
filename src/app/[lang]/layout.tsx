@@ -43,7 +43,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} className={inter.variable}>
-      <body className="bg-[#fafaf8] text-stone-900 antialiased min-h-screen">
+      <body className="bg-[#fafaf8] text-stone-900 antialiased min-h-screen" suppressHydrationWarning>
         <NavBar lang={lang} nav={dict.nav} />
         <main>{children}</main>
 
