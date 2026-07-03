@@ -33,7 +33,7 @@ export default function NavBar({ lang, nav }: NavBarProps) {
           <img
             src="/img/logo.png"
             alt="777 przepisów mostownicy Łucji"
-            className="w-14 h-14 object-contain mix-blend-multiply"
+            className="w-14 h-14 object-contain"
           />
           <span className="font-bold text-stone-900 text-[26px] font-handwritten tracking-wide leading-none">
             777 przepisów mostownicy Łucji

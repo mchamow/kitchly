@@ -54,7 +54,7 @@ export default async function RootLayout({
               <img
                 src="/img/logo.png"
                 alt="777 przepisów mostownicy Łucji"
-                className="w-12 h-12 object-contain mix-blend-multiply"
+                className="w-12 h-12 object-contain"
               />
               <span className="font-semibold text-stone-800 text-2xl font-handwritten tracking-wide">
                 777 przepisów mostownicy Łucji
