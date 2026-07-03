@@ -10,7 +10,7 @@ export async function generateMetadata({
 }: PageProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === "pl" ? "Cookbook — Strona główna" : "Cookbook — Home",
+    title: lang === "pl" ? "777 przepisów mostownicy — Strona główna" : "Lucy's 777 recipes — Home",
   };
 }
 
@@ -37,7 +37,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             <p className="text-amber-400 font-semibold text-xs tracking-wider uppercase mb-4 drop-shadow-sm">
               {d.tagline}
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6 text-white drop-shadow-md">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-handwritten tracking-wide mb-6 text-white drop-shadow-md">
               {d.headline}
             </h1>
             <p className="text-lg md:text-xl text-stone-200 leading-relaxed mb-8 max-w-lg drop-shadow-sm">

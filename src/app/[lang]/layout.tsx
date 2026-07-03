@@ -22,8 +22,8 @@ export async function generateMetadata({
   const isPolish = lang === "pl";
   return {
     title: {
-      default: "Cookbook",
-      template: "%s | Cookbook",
+      default: "777 przepisów mostownicy Łucji",
+      template: "%s | 777 przepisów mostownicy Łucji",
     },
     description: isPolish
       ? "Odkryj starannie dobrane przepisy — od śniadań po desery."
@@ -50,13 +50,18 @@ export default async function RootLayout({
         <footer className="mt-24 divider">
           <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-lg">🍴</span>
-              <span className="font-semibold text-stone-800 text-sm tracking-tight">
-                Cookbook
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/img/logo.png"
+                alt="777 przepisów mostownicy Łucji"
+                className="w-12 h-12 object-contain mix-blend-multiply"
+              />
+              <span className="font-semibold text-stone-800 text-2xl font-handwritten tracking-wide">
+                777 przepisów mostownicy Łucji
               </span>
             </div>
             <p className="text-stone-400 text-xs">
-              © {new Date().getFullYear()} Cookbook.{" "}
+              © {new Date().getFullYear()} 777 przepisów mostownicy Łucji.{" "}
               {dict.footer.rights}
             </p>
           </div>

@@ -28,10 +28,15 @@ export default function NavBar({ lang, nav }: NavBarProps) {
     <header className="sticky top-0 z-50 bg-[#fafaf8]/90 backdrop-blur-md border-b border-stone-200">
       <nav className="max-w-5xl mx-auto px-6 h-16 flex items-center gap-8">
         {/* Logo */}
-        <Link href={`/${lang}`} className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-xl">🍴</span>
-          <span className="font-bold text-stone-900 text-base tracking-tight">
-            Cookbook
+        <Link href={`/${lang}`} className="flex items-center gap-1.5 flex-shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/img/logo.png"
+            alt="777 przepisów mostownicy Łucji"
+            className="w-14 h-14 object-contain mix-blend-multiply"
+          />
+          <span className="font-bold text-stone-900 text-[26px] font-handwritten tracking-wide leading-none">
+            777 przepisów mostownicy Łucji
           </span>
         </Link>
 

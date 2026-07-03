@@ -56,7 +56,7 @@ export default async function RecipeDetailPage({
 
       {/* Header */}
       <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight leading-[1.15] mb-5">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-handwritten text-stone-900 tracking-wide mb-5">
           {post.title}
         </h1>
 
