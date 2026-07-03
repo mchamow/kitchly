@@ -25,7 +25,9 @@
   },
   "detail": {
     "recipe_by": "Recipe by",
-    "back": "Back to recipes"
+    "back": "Back to recipes",
+    "ingredients": "Ingredients",
+    "equipment": "Required equipment"
   },
   "footer": {
     "rights": "All rights reserved."

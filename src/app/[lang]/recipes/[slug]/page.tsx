@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPostBySlug, posts } from "@/lib/data";
 import { getDictionary, hasLocale, locales } from "@/dictionaries";
 import type { Metadata } from "next";
+import { RecipeSection } from "@/lib/types";
 
 export async function generateStaticParams() {
   return locales.flatMap((lang) =>
@@ -25,6 +26,98 @@ function formatDate(iso: string, lang: string) {
     month: "long",
     day: "numeric",
   });
+}
+
+interface IconRule {
+  keywords: string[];
+  icon: string;
+}
+
+const INGREDIENT_RULES: IconRule[] = [
+  { keywords: ["mąk", "flour", "proszek", "soda"], icon: "🌾" },
+  { keywords: ["cukier", "cukru", "sugar", "puder"], icon: "🍬" },
+  { keywords: ["masł", "butter", "margaryn", "tłuszcz"], icon: "🧈" },
+  { keywords: ["jaj", "egg", "żółtk", "białk"], icon: "🥚" },
+  { keywords: ["mlek", "milk", "śmietan", "jogurt", "ser", "twaróg"], icon: "🥛" },
+  { keywords: ["wod", "water", "sok", "płyn"], icon: "💧" },
+  { keywords: ["czekolad", "chocolate", "kakao"], icon: "🍫" },
+  { keywords: ["orzech", "nut", "migdał", "nerkowc"], icon: "🥜" },
+  { keywords: ["miód", "miodu", "honey"], icon: "🍯" },
+  { keywords: ["cynamon", "imbir", "goździk", "kardamon", "przypraw", "sól", "soli"], icon: "🧂" },
+  { keywords: ["jabłk", "apple"], icon: "🍎" },
+  { keywords: ["wiśn", "cherry", "malin", "truskaw", "papaj", "banan", "cytryn", "owoc", "borówk"], icon: "🍋" },
+];
+
+const EQUIPMENT_RULES: IconRule[] = [
+  { keywords: ["wag"], icon: "⚖️" },
+  { keywords: ["misk"], icon: "🥣" },
+  { keywords: ["nóż", "noż"], icon: "🔪" },
+  { keywords: ["wałek"], icon: "🥖" },
+  { keywords: ["foremk", "tortownic", "keksówk"], icon: "🧁" },
+  { keywords: ["blach", "papilot"], icon: "🥘" },
+  { keywords: ["piekarnik", "mikrofal"], icon: "♨️" },
+  { keywords: ["mikser", "blender", "trzepaczk", "szpryc"], icon: "🌪️" },
+  { keywords: ["łyżk", "łyżecz", "widelec", "szpatułk", "pędzel"], icon: "🥄" },
+  { keywords: ["garn", "pateln", "rondel"], icon: "🍳" },
+  { keywords: ["papier"], icon: "📄" },
+  { keywords: ["sitko"], icon: "🥅" },
+];
+
+function getIngredientIcon(text: string): string {
+  const t = text.toLowerCase();
+  const rule = INGREDIENT_RULES.find((r) => r.keywords.some((k) => t.includes(k)));
+  return rule ? rule.icon : "🔸";
+}
+
+function getEquipmentIcon(text: string): string {
+  const t = text.toLowerCase();
+  const rule = EQUIPMENT_RULES.find((r) => r.keywords.some((k) => t.includes(k)));
+  return rule ? rule.icon : "🛠️";
+}
+
+function renderStructuredList(rawHtml: string | null, type: RecipeSection, dictDetail: any): string {
+  if (!rawHtml) return "";
+  
+  const ulRegex = /<ul[^>]*?>([\s\S]*?)<\/ul>/i;
+  const ulMatch = rawHtml.match(ulRegex);
+  if (!ulMatch) return "";
+  
+  const listContent = ulMatch[1];
+  
+  let subtitle = "";
+  const headingPart = rawHtml.split("<ul")[0];
+  const cleanHeading = headingPart.replace(/<[^>]*?>/g, "").replace(/\\t|\\n/g, "").trim();
+  const subtitleMatch = cleanHeading.match(/\(([^)]+)\)/);
+  if (subtitleMatch) {
+    subtitle = subtitleMatch[1];
+  }
+  
+  const getIcon = type === RecipeSection.INGREDIENTS ? getIngredientIcon : getEquipmentIcon;
+  
+  const listItems = listContent.replace(/<li[^>]*?>([\s\S]*?)<\/li>/g, (m, itemText) => {
+    const cleanText = itemText.replace(/\\t|\\n/g, "").trim();
+    const icon = getIcon(cleanText);
+    return `
+      <li class="flex items-start gap-2 py-1 m-0">
+        <span class="flex-shrink-0 text-sm mt-0.5">${icon}</span>
+        <span class="text-stone-700 text-sm leading-relaxed">${cleanText}</span>
+      </li>
+    `;
+  });
+  
+  const title = type === RecipeSection.INGREDIENTS ? dictDetail.ingredients : dictDetail.equipment;
+  
+  return `
+    <div class="recipe-compact-section">
+      <div class="mb-2 border-b border-stone-200 pb-1.5">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-stone-400 m-0">${title}</h3>
+        ${subtitle ? `<span class="text-xs text-stone-400 font-normal block mt-0.5 leading-normal">${subtitle}</span>` : ""}
+      </div>
+      <ul class="list-none p-0 m-0 space-y-0.5">
+        ${listItems}
+      </ul>
+    </div>
+  `;
 }
 
 function renderImageGrid(images: string[]): string {
@@ -136,16 +229,59 @@ export default async function RecipeDetailPage({
       {/* Divider */}
       <div className="divider mb-10" />
 
-      {/* Content */}
-      <div
-        className="prose"
-        dangerouslySetInnerHTML={{
-          __html: post.content.replace(
-            /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
-            `/${lang}/recipes/$1`
-          ),
-        }}
-      />
+      {/* Intro */}
+      {post.intro && (
+        <div
+          className="prose mb-6"
+          dangerouslySetInnerHTML={{
+            __html: groupConsecutiveImages(
+              post.intro.replace(
+                /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
+                `/${lang}/recipes/$1`
+              )
+            ),
+          }}
+        />
+      )}
+
+      {/* Ingredients and Equipment Grid */}
+      {(post.ingredients || post.equipment) && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8 not-prose">
+          {post.ingredients ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: renderStructuredList(post.ingredients, RecipeSection.INGREDIENTS, d),
+              }}
+            />
+          ) : (
+            <div />
+          )}
+          {post.equipment ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: renderStructuredList(post.equipment, RecipeSection.EQUIPMENT, d),
+              }}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
+      )}
+
+      {/* Execution / Preparation */}
+      {post.execution && (
+        <div
+          className="prose mt-6"
+          dangerouslySetInnerHTML={{
+            __html: groupConsecutiveImages(
+              post.execution.replace(
+                /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
+                `/${lang}/recipes/$1`
+              )
+            ),
+          }}
+        />
+      )}
 
       {/* Back */}
       <div className="mt-16 pt-8 divider">

@@ -25,7 +25,9 @@
   },
   "detail": {
     "recipe_by": "Przepis od",
-    "back": "Powrót do przepisów"
+    "back": "Powrót do przepisów",
+    "ingredients": "Składniki",
+    "equipment": "Potrzebny sprzęt"
   },
   "footer": {
     "rights": "Wszelkie prawa zastrzeżone."

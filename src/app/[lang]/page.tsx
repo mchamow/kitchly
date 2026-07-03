@@ -25,48 +25,30 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
   return (
     <>
       {/* ── Hero ── */}
-      <section 
-        className="relative bg-cover bg-center bg-no-repeat py-20 md:py-28 overflow-hidden"
+      <section
+        className="relative h-[350px] bg-cover bg-center bg-no-repeat flex items-center overflow-hidden"
         style={{ backgroundImage: `url('/img/ext/7d617a5c8a_muffinki_2520jesienne_25203.jpg')` }}
       >
         {/* Gradient overlay for text contrast and premium depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-950/70 to-stone-900/35" />
 
-        <div className="relative max-w-5xl mx-auto px-6 z-10 text-white">
+        <div className="relative max-w-5xl w-full mx-auto px-6 z-10 text-white">
           <div className="max-w-2xl">
-            <p className="text-amber-400 font-semibold text-xs tracking-wider uppercase mb-4 drop-shadow-sm">
-              {d.tagline}
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-handwritten tracking-wide mb-6 text-white drop-shadow-md">
+            <h1 className="text-4xl md:text-5xl font-bold font-handwritten tracking-wide mb-4 text-white drop-shadow-md">
               {d.headline}
             </h1>
-            <p className="text-lg md:text-xl text-stone-200 leading-relaxed mb-8 max-w-lg drop-shadow-sm">
+            <p className="text-sm md:text-base text-stone-200 leading-relaxed mb-6 max-w-lg drop-shadow-sm">
               {d.body}
             </p>
             <div className="flex items-center gap-3">
               <Link
                 href={`/${lang}/recipes`}
                 id="hero-cta-primary"
-                className="bg-amber-600 text-white font-semibold text-sm px-6 py-3 rounded-lg hover:bg-amber-500 transition-all duration-200 shadow-lg shadow-amber-900/40 hover:shadow-amber-900/60 hover:-translate-y-0.5"
+                className="bg-amber-600 text-white font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-amber-500 transition-all duration-200 shadow-lg shadow-amber-900/40 hover:shadow-amber-900/60 hover:-translate-y-0.5"
               >
                 {d.cta_primary}
               </Link>
             </div>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center gap-10 mt-14 pt-10 border-t border-white/10">
-            {[
-              [String(posts.length), d.stats_recipes],
-              ["1", d.stats_chefs],
-            ].map(([num, label]) => (
-              <div key={label}>
-                <div className="text-3xl font-extrabold text-white drop-shadow-sm">{num}</div>
-                <div className="text-[10px] text-stone-300 font-semibold tracking-wider uppercase mt-1">
-                  {label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
