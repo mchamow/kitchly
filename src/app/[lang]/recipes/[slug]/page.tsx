@@ -27,6 +27,67 @@ function formatDate(iso: string, lang: string) {
   });
 }
 
+function renderImageGrid(images: string[]): string {
+  if (images.length === 1) {
+    return `<div class="my-6 not-prose flex justify-center">${images[0]}</div>`;
+  }
+  
+  const gridCols = `grid-cols-1 sm:grid-cols-2${images.length >= 3 ? " md:grid-cols-3" : ""}`;
+  
+  const cells = images.map((img) => {
+    let styledImg = img;
+    if (styledImg.includes("<img")) {
+      styledImg = styledImg.replace(
+        /<img\b/gi,
+        '<img class="rounded-lg object-cover w-full h-auto max-h-[300px] shadow-sm hover:scale-[1.01] transition-transform duration-200"'
+      );
+    }
+    return `<div class="flex justify-center items-center w-full">${styledImg}</div>`;
+  }).join("\n");
+  
+  return `
+    <div class="grid ${gridCols} gap-4 my-8 not-prose w-full">
+      ${cells}
+    </div>
+  `;
+}
+
+function groupConsecutiveImages(html: string): string {
+  const imageBlockRegex = /((?:<p[^>]*?>\s*)?(?:<a\b[^>]*?>\s*?<img\b[^>]*?>\s*?<\/a>|<img\b[^>]*?>)(?:\s*<\/p>)?)/gi;
+  const parts = html.split(imageBlockRegex);
+  let result = "";
+  let collectedImages: string[] = [];
+  
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    
+    if (i % 2 === 0) {
+      const clean = part.replace(/&nbsp;|<br\s*\/?>|<\/?p>\s*<\/?p>|\s/gi, "").trim();
+      if (clean === "") {
+        continue;
+      } else {
+        if (collectedImages.length > 0) {
+          result += renderImageGrid(collectedImages);
+          collectedImages = [];
+        }
+        result += part;
+      }
+    } else {
+      let cleanImage = part.trim();
+      if (cleanImage.toLowerCase().startsWith("<p")) {
+        cleanImage = cleanImage.replace(/^<p[^>]*?>/i, "").replace(/<\/p>$/i, "").trim();
+      }
+      collectedImages.push(cleanImage);
+    }
+  }
+  
+  if (collectedImages.length > 0) {
+    result += renderImageGrid(collectedImages);
+  }
+  
+  return result;
+}
+
 export default async function RecipeDetailPage({
   params,
 }: PageProps<"/[lang]/recipes/[slug]">) {
