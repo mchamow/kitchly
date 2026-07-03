@@ -78,7 +78,12 @@ export default async function RecipeDetailPage({
       {/* Content */}
       <div
         className="prose"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{
+          __html: post.content.replace(
+            /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
+            `/${lang}/recipes/$1`
+          ),
+        }}
       />
 
       {/* Back */}
