@@ -1,0 +1,10 @@
+{
+  "appId": "com.lucja.recipes",
+  "appName": "777 cookbook",
+  "webDir": "out",
+  "server": {
+    "androidScheme": "https",
+    "hostname": "localhost"
+  },
+  "backgroundColor": "#0C0A09"
+}
