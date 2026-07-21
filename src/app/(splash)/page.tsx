@@ -9,8 +9,17 @@ export default function RootPage() {
     const isRoot = path === "/" || path === "" || path === "/index.html";
 
     if (isRoot) {
-      // Using explicit index.html to ensure Capacitor finds the file
-      window.location.replace(`/${defaultLocale}/index.html`);
+      // Check if running on web (Vercel production or local dev server) vs native Capacitor
+      const isWeb = 
+        window.location.hostname.includes(".") && !window.location.hostname.endsWith(".local") || // Public web domain
+        window.location.port !== ""; // Local dev server with port (e.g. localhost:3000)
+
+      if (isWeb) {
+        window.location.replace(`/${defaultLocale}/`);
+      } else {
+        // Using explicit index.html to ensure Capacitor finds the file in local build folders
+        window.location.replace(`/${defaultLocale}/index.html`);
+      }
     }
   }, []);
 
