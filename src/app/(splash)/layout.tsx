@@ -1,4 +1,3 @@
-import ClientLogger from "@/components/ClientLogger";
 import "../globals.css";
 
 export default function RootLayout({
