@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Vercel Blob assets (kept locally for Android/Capacitor builds only)
+/public/img/ext/
+/public/img/uploads/

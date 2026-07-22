@@ -4,6 +4,7 @@ import { getFeaturedPosts, posts } from "@/lib/data";
 import { getDictionary, hasLocale } from "@/dictionaries";
 import PostGrid from "@/components/RecipeGrid";
 import type { Metadata } from "next";
+import { getImageUrl } from "@/lib/images";
 
 export async function generateMetadata({
   params,
@@ -27,7 +28,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       {/* ── Hero ── */}
       <section
         className="relative h-[350px] bg-cover bg-center bg-no-repeat flex items-center overflow-hidden"
-        style={{ backgroundImage: `url('/img/ext/7d617a5c8a_muffinki_2520jesienne_25203.jpg')` }}
+        style={{ backgroundImage: `url('${getImageUrl("/img/ext/7d617a5c8a_muffinki_2520jesienne_25203.jpg")}')` }}
       >
         {/* Gradient overlay for text contrast and premium depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-950/70 to-stone-900/35" />

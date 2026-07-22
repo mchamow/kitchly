@@ -4,6 +4,7 @@ import { getPostBySlug, posts } from "@/lib/data";
 import { getDictionary, hasLocale, locales } from "@/dictionaries";
 import type { Metadata } from "next";
 import { RecipeSection } from "@/lib/types";
+import { patchHtmlImageSources } from "@/lib/images";
 
 export async function generateStaticParams() {
   return locales.flatMap((lang) =>
@@ -234,10 +235,12 @@ export default async function RecipeDetailPage({
         <div
           className="prose mb-6"
           dangerouslySetInnerHTML={{
-            __html: groupConsecutiveImages(
-              post.intro.replace(
-                /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
-                `/${lang}/recipes/$1`
+            __html: patchHtmlImageSources(
+              groupConsecutiveImages(
+                post.intro.replace(
+                  /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
+                  `/${lang}/recipes/$1`
+                )
               )
             ),
           }}
@@ -273,10 +276,12 @@ export default async function RecipeDetailPage({
         <div
           className="prose mt-6"
           dangerouslySetInnerHTML={{
-            __html: groupConsecutiveImages(
-              post.execution.replace(
-                /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
-                `/${lang}/recipes/$1`
+            __html: patchHtmlImageSources(
+              groupConsecutiveImages(
+                post.execution.replace(
+                  /\/pl\/recipes\/([a-zA-Z0-9_-]+)/g,
+                  `/${lang}/recipes/$1`
+                )
               )
             ),
           }}

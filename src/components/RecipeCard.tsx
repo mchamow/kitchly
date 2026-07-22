@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Post } from "@/lib/types";
+import { getImageUrl } from "@/lib/images";
 
 interface PostCardProps {
   post: Post;
@@ -23,7 +24,7 @@ export default function PostCard({ post, lang }: PostCardProps) {
           {post.coverImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={post.coverImage}
+              src={getImageUrl(post.coverImage)}
               alt={post.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
